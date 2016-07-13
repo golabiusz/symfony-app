@@ -1,0 +1,7 @@
+!/logs
+/logs/*
+!/logs/nginx
+/logs/nginx/*
+!/logs/symfony
+/logs/symfony/*
+!/logs/.gitkeep

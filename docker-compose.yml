@@ -1,0 +1,53 @@
+version: '2'
+services:
+    db1:
+        image: mariadb:10.1
+        container_name: db1
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: r00T
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: user_symfony
+            MYSQL_PASSWORD: us3R
+    php:
+        build: ./php
+        container_name: php
+        expose:
+            - 9000
+        volumes:
+            - ./symfony:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/app/logs
+        links:
+            - db1
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        ports:
+            - 8080:80
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+    redis-master:
+        image: redis:3.2
+        container_name: redis-master
+        ports:
+            - 6660:6379
+    redis-slave1:
+        build: redis-slave1
+        container_name: redis-slave1
+        ports:
+            - 6661:6379
+        depends_on:
+            - redis-master
+    redis-slave2:
+        build: redis-slave2
+        container_name: redis-slave2
+        ports:
+            - 6662:6379
+        depends_on:
+            - redis-master
+
