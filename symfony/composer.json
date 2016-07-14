@@ -1,5 +1,5 @@
 {
-    "name": "golabiusz/redis.app",
+    "name": "golabiusz/symfony.app",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -63,5 +63,9 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
+    },
+    "platform": {
+        "php": "5.6"
     }
 }
+
